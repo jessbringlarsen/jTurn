@@ -1,36 +1,21 @@
 package org.jturn.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 public class Tournament extends EntityObject {
-	private String name;
+	private final String name;
+	private final Collection<Category> categories = new ArrayList<>();
 
 	public Tournament(String name) {
 		this.name = name;
 	}
+	
+	public void addCategory(Category category) {
+		categories.add(category);
+	}
 
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return "Turnering: " + this.name;
-	}
-
-	@Override
-	public int hashCode() {
-		return this.getName().hashCode();
-	}
-
-	@Override
-	public boolean equals(Object tournament) {
-		if (this == tournament) return true;
-	    if (tournament == null) return false;
-	    if (this.getClass() != tournament.getClass()) return false;
-	    Tournament otherTournament = (Tournament) tournament;
-	    return (this.getName().equals(otherTournament.getName()));
 	}
 }

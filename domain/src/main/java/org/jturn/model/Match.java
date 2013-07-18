@@ -1,14 +1,10 @@
-/*
- * Created on 14-07-2004
- */
 package org.jturn.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Represent a match. Two contestants, court and winner. Also collects
- * the result of the match (set score etc.)
+ * Represent a match.
  *
  * @author jebl
  */
@@ -16,27 +12,66 @@ import java.util.Map;
 public class Match extends EntityObject {
 
 	private final int matchNo;
-	private final CategoryParticipant contestantA;
-	private final CategoryParticipant contestantB;
-	private final Map<Integer, MatchResult> matchResults;
+	private ContestantInterface contestantA;
+	private ContestantInterface contestantB;
+	private List<MatchResult> matchResults;
 
-	public Match(int matchNo, CategoryParticipant contestantA, CategoryParticipant contestantB) {
+	public Match(int matchNo) {
 		this.matchNo = matchNo;
+	}
+	
+	public Match(int matchNo, ContestantInterface contestantA, ContestantInterface contestantB) {
+		this(matchNo);
 		this.contestantA = contestantA;
 		this.contestantB = contestantB;
-		this.matchResults = new HashMap<>();
 	}
 
+	public ContestantInterface getWinner() {
+		if(isFinished()) {
+			int resultA = 0;
+			int resultB = 0;
+			for(MatchResult result : matchResults) {
+				if(result.getResultA() > result.getResultB()) {
+					resultA++;
+				} else {
+					resultB++;
+				}
+			}
+			if(resultA > resultB) {
+				return contestantA;
+			} else {
+				return contestantB;
+			}
+		}
+		return null;
+	}
+	
+	public void setContestantA(ContestantInterface contestantA) {
+		this.contestantA = contestantA;
+	}
+
+	public void setContestantB(ContestantInterface contestantB) {
+		this.contestantB = contestantB;
+	}
+
+	public boolean isFinished() {
+		return !matchResults.isEmpty();
+	}
+	
+	public boolean isReady() {
+		return contestantA != null && contestantB != null;
+	}
+	
 	/**
-	 * @param resultNo resultNo indicate the sequenze number of the result
+	 * @param resultNo indicate the sequence number of the result
 	 * @param result
 	 */
-	public void addResult(Integer resultNo, MatchResult result) {
-		this.matchResults.put(resultNo, result);
+	public void addResult(List<MatchResult> results) {
+		matchResults = new ArrayList<>(results);
 	}
 
 	public void clearResults() {
-		this.matchResults.clear();
+		matchResults.clear();
 	}
 
 	/**
@@ -46,29 +81,15 @@ public class Match extends EntityObject {
 		return matchNo;
 	}
 
-	/**
-	 * @return Returns the contestantA.
-	 */
-	public CategoryParticipant getContestantA() {
-		return contestantA;
-	}
-
-	/**
-	 * @return Returns the contestantB.
-	 */
-	public CategoryParticipant getContestantB() {
-		return contestantB;
-	}
-	
-	public Map<Integer, MatchResult> getMatchResults() {
-		return matchResults;
-	}
-	
 	@Override
 	public String toString() {
-		String ret = "Match no: " + this.matchNo;
-		ret += "\nA: " + this.contestantA + "B: " + this.contestantB;
-		return ret;
+		StringBuilder builder = new StringBuilder();
+		builder.append("Match [matchNo=").append(matchNo)
+				.append(", contestantA=").append(contestantA)
+				.append(", contestantB=").append(contestantB)
+				.append(", matchResults=").append(matchResults).append("]");
+		return builder.toString();
 	}
-
+	
+	
 }

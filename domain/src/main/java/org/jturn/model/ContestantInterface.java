@@ -13,6 +13,8 @@ public interface ContestantInterface {
 	String getName();
 
 	String getShortName();
+	
+	int getSeed();
 
-	void setName(String fName, String sName);
+	boolean isBye();
 }

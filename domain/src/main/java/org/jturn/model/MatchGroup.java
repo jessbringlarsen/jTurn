@@ -3,6 +3,8 @@
  */
 package org.jturn.model;
 
+import java.util.Collection;
+
 
 /**
  *
@@ -13,5 +15,9 @@ package org.jturn.model;
  */
 public class MatchGroup extends EntityObject {
 
-	private CategoryTournemant categoryPart;
+	private final Collection<Match> matches;
+
+	public MatchGroup(Collection<Match> matches) {
+		this.matches = matches;
+	}
 }

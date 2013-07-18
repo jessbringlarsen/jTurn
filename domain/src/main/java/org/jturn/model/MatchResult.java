@@ -1,6 +1,3 @@
-/*
- * Created on 14-07-2004
- */
 package org.jturn.model;
 
 
@@ -9,7 +6,7 @@ package org.jturn.model;
  * (eg. 11-7).
  */
 
-public class MatchResult extends EntityObject {
+public class MatchResult {
 
 	private final int resultA;
 	private final int resultB;

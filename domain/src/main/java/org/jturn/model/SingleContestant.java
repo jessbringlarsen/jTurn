@@ -3,7 +3,6 @@
  */
 package org.jturn.model;
 
-import java.io.Serializable;
 
 /**
  *
@@ -12,27 +11,15 @@ import java.io.Serializable;
  * @author jebl
  */
 
-public class SingleContestant extends EntityObject implements Serializable, ContestantInterface { //, Comparable<SingleContestant>,
-	private String fName, sName;
+public class SingleContestant extends BaseContestant {
 
-	public SingleContestant(String fName, String sName) {
-		this.fName = fName;
-		this.sName = sName;
+	public SingleContestant(int seed, String firstName, String surName) {
+		super(seed, firstName, surName);
 	}
+	
 
 	@Override
-	public void setName(String fName, String sName) {
-		this.fName = fName;
-		this.sName = sName;
-	}
-
-	@Override
-	public String getName() {
-		return this.fName + " " + sName;
-	}
-
-	@Override
-	public String getShortName() {
-		return this.sName;
+	public boolean isBye() {
+		return false;
 	}
 }

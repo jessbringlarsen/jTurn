@@ -21,4 +21,8 @@ class ByeCalculator {
 		}
 		return counter - numberOfPlayers;
 	}
+	
+	static boolean isPowerOfTwo(int numberOfPlayers) {
+		return noOfBye(numberOfPlayers) == 0;
+	}
 }

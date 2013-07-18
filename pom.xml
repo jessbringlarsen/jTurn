@@ -2,17 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jturn</groupId>
   <artifactId>jturn</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
   <packaging>pom</packaging>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.version>1.0</project.version>
   </properties>
   
   <build>
     <directory>target</directory>
     <outputDirectory>target/classes</outputDirectory>
-    <finalName>${artifactId}-${version}</finalName>
+    <finalName>${project.artifactId}-${project.version}</finalName>
     <testOutputDirectory>target/test-classes</testOutputDirectory>
     <sourceDirectory>src/main/java</sourceDirectory>
     <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
@@ -45,18 +46,28 @@
   	<module>domain</module>
   	<module>tournament</module>
   </modules>
-  <dependencies>
-  	<dependency>
-  		<groupId>com.google.guava</groupId>
-  		<artifactId>guava</artifactId>
-  		<version>14.0</version>
-  	</dependency>
-  	
-  	<dependency>
-	  <groupId>junit</groupId>
-	  <artifactId>junit</artifactId>
-	  <version>4.11</version>
-	  <scope>test</scope>
-	</dependency>
-  </dependencies>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.11</version>
+	      <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>14.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jturn</groupId>
+        <artifactId>domain</artifactId>
+        <version>1.0</version>
+        <type>jar</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

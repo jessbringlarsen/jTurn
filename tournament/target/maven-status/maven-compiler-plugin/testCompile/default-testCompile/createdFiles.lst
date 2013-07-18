@@ -1,0 +1,3 @@
+org/jturn/tournament/roundrobin/RoundRobinMatchPairGeneratorTest.class
+org/jturn/tournament/roundrobin/RoundRobinMatchPairGeneratorIllegalArgumentTest.class
+org/jturn/tournament/elimination/ByeCalculatorTest.class
