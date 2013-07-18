@@ -9,12 +9,12 @@ public class EliminationTreeMatchNode {
 	
 	private Match match;
 
-	public EliminationTreeMatchNode() {
-		this(null, null, null);
+	public EliminationTreeMatchNode(Match match) {
+		this(null, null, match);
 	}
 	
 	public EliminationTreeMatchNode(EliminationTreeMatchNode previousNodeA, EliminationTreeMatchNode previousNodeB) {
-		this(previousNodeA, previousNodeB, null);
+		this(previousNodeA, previousNodeB, new Match());
 	}
 	
 	public EliminationTreeMatchNode(EliminationTreeMatchNode previousNodeA,
@@ -33,7 +33,7 @@ public class EliminationTreeMatchNode {
 	}
 
 	public boolean isReady() {
-		return match != null && match.isReady();
+		return match != null && !match.isFinished() && match.isReady();
 	}
 	
 	public EliminationTreeMatchNode getPreviousNodeA() {

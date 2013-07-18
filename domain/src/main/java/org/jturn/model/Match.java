@@ -1,6 +1,7 @@
 package org.jturn.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,19 +12,18 @@ import java.util.List;
 
 public class Match extends EntityObject {
 
-	private final int matchNo;
 	private ContestantInterface contestantA;
 	private ContestantInterface contestantB;
 	private List<MatchResult> matchResults;
 
-	public Match(int matchNo) {
-		this.matchNo = matchNo;
+	public Match() {
+		this(null, null);
 	}
 	
-	public Match(int matchNo, ContestantInterface contestantA, ContestantInterface contestantB) {
-		this(matchNo);
+	public Match(ContestantInterface contestantA, ContestantInterface contestantB) {
 		this.contestantA = contestantA;
 		this.contestantB = contestantB;
+		this.matchResults = Collections.emptyList();
 	}
 
 	public ContestantInterface getWinner() {
@@ -74,18 +74,10 @@ public class Match extends EntityObject {
 		matchResults.clear();
 	}
 
-	/**
-	 * @return Returns the matchNo.
-	 */
-	public int getMatchNo() {
-		return matchNo;
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Match [matchNo=").append(matchNo)
-				.append(", contestantA=").append(contestantA)
+		builder.append("Match [contestantA=").append(contestantA)
 				.append(", contestantB=").append(contestantB)
 				.append(", matchResults=").append(matchResults).append("]");
 		return builder.toString();
