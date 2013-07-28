@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.jturn.model.Match;
-import org.jturn.model.MatchResult;
+import org.jturn.model.MatchResultInterface;
 
 public class EliminationTreeResults {
 
@@ -15,7 +15,7 @@ public class EliminationTreeResults {
 		matches.put(matchNo, match);
 	}
 	
-	void addResult(Integer matchNo, List<MatchResult> result) {
+	void addResult(Integer matchNo, List<MatchResultInterface> result) {
 		if(matches.containsKey(matchNo)) {
 			// report
 		} else {

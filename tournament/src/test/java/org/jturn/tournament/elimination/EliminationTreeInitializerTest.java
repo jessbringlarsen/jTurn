@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.jturn.model.Match;
 import org.jturn.model.MatchResult;
+import org.jturn.model.MatchResultInterface;
 import org.jturn.model.SingleContestant;
 import org.jturn.tournament.elimination.tree.EliminationTree;
 import org.junit.Assert;
@@ -15,6 +16,18 @@ import org.junit.Test;
 
 public class EliminationTreeInitializerTest {
 
+	@Test(expected=IllegalArgumentException.class)
+	public void hasErrorOnNullInput() {
+		EliminationTreeInitializer initializer = new EliminationTreeInitializer();
+		initializer.initialize(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void hasErrorOnEmptyInput() {
+		EliminationTreeInitializer initializer = new EliminationTreeInitializer();
+		initializer.initialize(Collections.<Match>emptyList());
+	}
+	
 	@Test
 	public void testCorrectNumberOfFirstroundMatchesIsGenerated() {
 		for(int i=2; i<=256; i=i+i) {
@@ -32,7 +45,7 @@ public class EliminationTreeInitializerTest {
 
 		List<Match> matches = new ArrayList<>(tree.getFirstRoundMatches());
 		for(Match match : matches) {
-			match.addResult(Collections.singletonList(new MatchResult(1, 1, 0)));
+			match.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 1, 0)));
 		}
 		tree.proceed();
 		Assert.assertThat(tree.getNextMatches().size(), is(1));
@@ -44,8 +57,8 @@ public class EliminationTreeInitializerTest {
 		int seed=1;
 		for(int i=0; i<numberOfMatches; i++) {
 			Match match = new Match();
-			match.setContestantA(new SingleContestant(seed, "playerA-" + seed++, ""));
-			match.setContestantB(new SingleContestant(seed, "playerB-" + seed, ""));
+			match.setContestantA(new SingleContestant(seed, "playerA-" + seed, ""));
+			match.setContestantB(new SingleContestant(seed, "playerB-" + ++seed, ""));
 			result.add(match);
 		}
 		return result;

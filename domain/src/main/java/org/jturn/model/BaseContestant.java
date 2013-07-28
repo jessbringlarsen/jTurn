@@ -2,6 +2,7 @@ package org.jturn.model;
 
 
 abstract class BaseContestant extends EntityObject implements ContestantInterface {
+
 	private final int seed;
 	private final String firstName; 
 	private final String surName;
@@ -12,6 +13,7 @@ abstract class BaseContestant extends EntityObject implements ContestantInterfac
 		this.surName = surName;
 	}
 
+	@Override
 	public int getSeed() {
 		return seed;
 	}
@@ -24,5 +26,14 @@ abstract class BaseContestant extends EntityObject implements ContestantInterfac
 	@Override
 	public String getShortName() {
 		return surName;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("BaseContestant [seed=").append(seed)
+		.append(", firstName=").append(firstName).append(", surName=")
+		.append(surName).append("]");
+		return builder.toString();
 	}
 }

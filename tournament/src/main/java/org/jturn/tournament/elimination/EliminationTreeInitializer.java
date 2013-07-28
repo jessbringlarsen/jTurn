@@ -8,14 +8,18 @@ import org.jturn.model.Match;
 import org.jturn.tournament.elimination.tree.EliminationTree;
 import org.jturn.tournament.elimination.tree.EliminationTreeMatchNode;
 
+import com.google.common.base.Preconditions;
+
 /**
  * Responsible for initializing the elimination tree with the 
  * correct number of nodes. 
  *
  */
-class EliminationTreeInitializer {
+public class EliminationTreeInitializer {
 
-	EliminationTree initialize(List<Match> firstRoundMatches) {
+	public EliminationTree initialize(List<Match> firstRoundMatches) {
+		Preconditions.checkArgument(firstRoundMatches != null, "Argument must be non null!");
+		Preconditions.checkArgument(firstRoundMatches.size() > 0, "Argument must contain at least one match!");
 		
 		Deque<EliminationTreeMatchNode> matches = new ArrayDeque<>();
 		for(Match match : firstRoundMatches) {

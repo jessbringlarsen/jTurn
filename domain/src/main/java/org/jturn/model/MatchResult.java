@@ -6,7 +6,7 @@ package org.jturn.model;
  * (eg. 11-7).
  */
 
-public class MatchResult {
+public class MatchResult implements MatchResultInterface {
 
 	private final int resultA;
 	private final int resultB;
@@ -22,10 +22,18 @@ public class MatchResult {
 		this.resultB = resultB;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.jturn.model.MatchResultInterface#getResultA()
+	 */
+	@Override
 	public int getResultA() {
 		return resultA;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.jturn.model.MatchResultInterface#getResultB()
+	 */
+	@Override
 	public int getResultB() {
 		return resultB;
 	}

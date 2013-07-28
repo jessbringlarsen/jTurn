@@ -1,7 +1,7 @@
 package org.jturn.config;
 
 import org.jturn.model.Match;
-import org.jturn.model.MatchResult;
+import org.jturn.model.MatchResultInterface;
 
 /**
  * Responsible for upholding the rules in a points and games based scoring game. 
@@ -27,21 +27,21 @@ public class PointsAndGames {
 		
 	}
 	
-	public boolean isValidResult(MatchResult result) {
+	public boolean isValidResult(MatchResultInterface result) {
 		hasBothLost(result);
 		isScoreDifferenceCorrect(result);
 		isScoreDifferenceCorrectTieBreak(result);
 		return false;
 	}
 	
-	private boolean hasBothLost(MatchResult result) {
+	private boolean hasBothLost(MatchResultInterface result) {
 		if(result.getResultA() < pointsNeededToWin && result.getResultB() < pointsNeededToWin) {
 			return true;
 		}
 		return false;
 	}
 	
-	private boolean isScoreDifferenceCorrect(MatchResult result) {
+	private boolean isScoreDifferenceCorrect(MatchResultInterface result) {
 		if(result.getResultA() == pointsNeededToWin || result.getResultB() == pointsNeededToWin) {
 			
 			int maxLooserPoints = pointsNeededToWin - minPointDifferenceToWin;
@@ -56,7 +56,7 @@ public class PointsAndGames {
 		return true;
 	}
 	
-	private boolean isScoreDifferenceCorrectTieBreak(MatchResult result) {
+	private boolean isScoreDifferenceCorrectTieBreak(MatchResultInterface result) {
 		if(result.getResultA() > pointsNeededToWin && result.getResultB() > pointsNeededToWin) {
 			
 			if(result.getResultA() > result.getResultB()) {

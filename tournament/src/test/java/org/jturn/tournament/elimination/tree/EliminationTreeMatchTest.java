@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import org.jturn.model.Match;
 import org.jturn.model.MatchResult;
+import org.jturn.model.MatchResultInterface;
 import org.jturn.model.SingleContestant;
 import org.jturn.tournament.elimination.EliminationTreeInitializer;
 import org.junit.Assert;
@@ -22,7 +23,7 @@ public class EliminationTreeMatchTest {
 		
 		Assert.assertEquals(1, tree.getFirstRoundMatches().size());
 		
-		finalie.addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
+		finalie.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
 		tree.proceed();
 		Assert.assertEquals(0, tree.getNextMatches().size());
 	}
@@ -41,8 +42,8 @@ public class EliminationTreeMatchTest {
 		
 		Assert.assertEquals(2, tree.getFirstRoundMatches().size());
 		
-		m1.addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
-		m2.addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
+		m1.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
+		m2.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
 		tree.proceed();
 		Assert.assertEquals(1, tree.getNextMatches().size());
 	}

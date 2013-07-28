@@ -14,7 +14,7 @@ public class Match extends EntityObject {
 
 	private ContestantInterface contestantA;
 	private ContestantInterface contestantB;
-	private List<MatchResult> matchResults;
+	private List<MatchResultInterface> matchResults;
 
 	public Match() {
 		this(null, null);
@@ -27,23 +27,33 @@ public class Match extends EntityObject {
 	}
 
 	public ContestantInterface getWinner() {
-		if(isFinished()) {
-			int resultA = 0;
-			int resultB = 0;
-			for(MatchResult result : matchResults) {
-				if(result.getResultA() > result.getResultB()) {
-					resultA++;
-				} else {
-					resultB++;
-				}
-			}
-			if(resultA > resultB) {
-				return contestantA;
+		if(contestantA.isBye()) {
+			return contestantB;
+		} else if(contestantB.isBye()) {
+			return contestantA;
+		}
+		
+		int resultA = 0;
+		int resultB = 0;
+		for(MatchResultInterface result : matchResults) {
+			if(result.getResultA() > result.getResultB()) {
+				resultA++;
 			} else {
-				return contestantB;
+				resultB++;
 			}
 		}
-		return null;
+		if(resultA > resultB) {
+			return contestantA;
+		} else {
+			return contestantB;
+		}
+	}
+	
+	public ContestantInterface getLooser() {
+		if(getWinner().equals(contestantA)) {
+			return contestantB;
+		}
+		return contestantA;
 	}
 	
 	public void setContestantA(ContestantInterface contestantA) {
@@ -66,7 +76,7 @@ public class Match extends EntityObject {
 	 * @param resultNo indicate the sequence number of the result
 	 * @param result
 	 */
-	public void addResult(List<MatchResult> results) {
+	public void addResult(List<MatchResultInterface> results) {
 		matchResults = new ArrayList<>(results);
 	}
 

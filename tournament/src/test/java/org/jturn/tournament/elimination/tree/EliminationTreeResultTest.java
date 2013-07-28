@@ -7,9 +7,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.jturn.model.ByeContestant;
 import org.jturn.model.ContestantInterface;
 import org.jturn.model.Match;
 import org.jturn.model.MatchResult;
+import org.jturn.model.MatchResultInterface;
+import org.jturn.model.MatchResultWalkOver;
 import org.jturn.model.SingleContestant;
 import org.jturn.tournament.elimination.EliminationTreeInitializer;
 import org.junit.Assert;
@@ -17,6 +20,26 @@ import org.junit.Test;
 
 public class EliminationTreeResultTest {
 
+	@Test
+	public void hasOneMatchWithBye() {
+		SingleContestant constant1 = new SingleContestant(1, "Jess", "Bring-Larsen"); 
+		ByeContestant constant2 = new ByeContestant(2);
+		
+		Match finalie = new Match(constant1, constant2);
+		EliminationTreeInitializer initializer = new EliminationTreeInitializer();
+		EliminationTree tree = initializer.initialize(Collections.singletonList(finalie));
+
+		finalie.addResult(Collections.<MatchResultInterface>singletonList(new MatchResultWalkOver()));
+		tree.proceed();
+		
+		Map<Integer, Collection<ContestantInterface>> result = tree.getResult();
+		Assert.assertEquals(2, result.size());
+		
+		Iterator<Entry<Integer, Collection<ContestantInterface>>> resultIterator = result.entrySet().iterator();
+		Assert.assertEquals(constant1, resultIterator.next().getValue().iterator().next());
+		Assert.assertEquals(constant2, resultIterator.next().getValue().iterator().next());
+	}
+	
 	@Test
 	public void hasOneMatch() {
 		SingleContestant constant1 = new SingleContestant(1, "Jess", "Bring-Larsen"); 
@@ -26,7 +49,7 @@ public class EliminationTreeResultTest {
 		EliminationTreeInitializer initializer = new EliminationTreeInitializer();
 		EliminationTree tree = initializer.initialize(Collections.singletonList(finalie));
 
-		finalie.addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
+		finalie.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
 		tree.proceed();
 		
 		Map<Integer, Collection<ContestantInterface>> result = tree.getResult();
@@ -54,14 +77,15 @@ public class EliminationTreeResultTest {
 		EliminationTreeInitializer initializer = new EliminationTreeInitializer();
 		EliminationTree tree = initializer.initialize(Arrays.asList(m1, m2));
 		
-		m1.addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
-		m2.addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
+		m1.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
+		m2.addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
 		tree.proceed();
 		
 		Collection<Match> finalie = tree.getNextMatches();
 		Assert.assertEquals(1, finalie.size());
-		finalie.iterator().next().addResult(Collections.singletonList(new MatchResult(1, 3, 0)));
+		finalie.iterator().next().addResult(Collections.<MatchResultInterface>singletonList(new MatchResult(1, 3, 0)));
 		tree.proceed();
+		Assert.assertEquals(0, tree.getNextMatches().size());
 		
 		Map<Integer, Collection<ContestantInterface>> result = tree.getResult();
 		Assert.assertEquals(3, result.size());
